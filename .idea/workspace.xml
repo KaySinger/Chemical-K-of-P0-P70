@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35554908-74d6-435f-9b50-180ecfb9c8f2" name="更改" comment="" />
+    <list default="true" id="35554908-74d6-435f-9b50-180ecfb9c8f2" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/zhengtai.py" beforeDir="false" afterPath="$PROJECT_DIR$/zhengtai.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,6 +104,7 @@
       <workItem from="1720836760772" duration="1473000" />
       <workItem from="1721021562412" duration="7453000" />
       <workItem from="1721107038365" duration="1971000" />
+      <workItem from="1721111786450" duration="27000" />
     </task>
     <servers />
   </component>

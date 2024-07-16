@@ -18,7 +18,7 @@ concentrations = concentrations * 100
 # 创建字典来存储浓度数据
 norm_concentration_p = {f'P{i}': c for i, c in enumerate(concentrations, start=1)}
 print(norm_concentration_p, sum(concentrations), [0] + list(concentrations))
-
+ 
 # 绘制浓度曲线
 plt.xlabel("P-concentrations")
 plt.ylabel("concentration")
