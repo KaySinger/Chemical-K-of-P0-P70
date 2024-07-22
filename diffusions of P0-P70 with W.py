@@ -28,7 +28,7 @@ def equations(p, t, k_values):
 # 定义目标函数，用于拟合最终浓度
 def objective(k):
     initial_conditions = [5 + (concentrations[0] / 2.0), 5 - (concentrations[0] / 2.0), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    t = np.linspace(0, 1000, 1000)
+    t = np.linspace(0, 5000, 5000)
     sol = odeint(equations, initial_conditions, t, args=(k,))
     final_concentrations = sol[-1, :]  # 忽略 p0 和 w
     target_concentrations = [0, 0] + list(concentrations)
@@ -48,7 +48,7 @@ print("k_inv", k_optimized[70:])
 
 # 利用优化后的参数进行模拟
 initial_conditions = [5 + (concentrations[0] / 2.0), 5 - (concentrations[0] / 2.0), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-t = np.linspace(0, 1000, 1000)
+t = np.linspace(0, 5000, 5000)
 sol = odeint(equations, initial_conditions, t, args=(k_optimized,))
 
 # 检验模块，验证动态平衡时dpdt是否等于0
