@@ -1,159 +1,89 @@
+import Optimize_K_Model
 import numpy as np
+from matplotlib import pyplot as plt
 from scipy.integrate import odeint
-import matplotlib.pyplot as plt
+from scipy.optimize import minimize
 
-def equations(p, t, k_values):
-    k = k_values[:70]
-    k_inv = k_values[70:]
-    dpdt = [0] * 72
-    dpdt[0] = - k[0] * p[0]
-    dpdt[1] = - k[1] * p[1] * p[2] # 其中W物质设为p[1],dpdt[1] = dwdt
-    dpdt[2] = k[0] * p[0] + k_inv[0] * p[3] - k[1] * p[1] * p[2]
-    dpdt[3] = 2 * k[1] * p[1] * p[2] + k_inv[1] * p[4] - k_inv[0] * p[3] - k[2] * p[3]**2
-    for i in range(4, 71):
-        dpdt[i] = k[i - 2] * p[i - 1] ** 2 + k_inv[i - 2] * p[i + 1] - k_inv[i - 3] * p[i] - k[i-1] * p[i] ** 2 # dp3dt - dp69dt格式类似
-    dpdt[71] = k[69] * p[70] ** 2 - k_inv[68] * p[71]
+# 模拟正态分布
+mu = 35.5
+sigma = 20
+scale_factor = 10
+concentrations, x_values = Optimize_K_Model.simulate_normal_distribution(mu, sigma, total_concentration=1.0, scale_factor=scale_factor)
+print("理想稳态浓度分布", {f'P{i}': c for i, c in enumerate(concentrations, start=1)})
+x = [2, 20, 35, 50, 69]
+for i in range(len(x)):
+    # 初始K值猜测
+    initial_guess = Optimize_K_Model.initialize_k_values(concentrations)
+    initial_guess[x[i]] = 5
+    print(f"修改后的initial_guess (修改k{x[i]}):", initial_guess)
 
-    return dpdt
+    # 添加参数约束，确保所有k值都是非负的
+    bounds = [(0, 5)] * 70 + [(0, 0.5)] * 68  # 确保长度为 139
 
-k = [1.210977408, 1.03037646, 2.02412663, 1.71461242, 1.45886722, 1.24734607,
- 1.07177802, 0.9286352,  0.80736923, 0.70455234, 0.61785141, 0.54612997,
- 0.48421743, 0.4311806,  0.38560322, 0.34732381, 0.31456451, 0.28605928,
- 0.26122753, 0.24020899, 0.22162072, 0.20548112, 0.19145075, 0.17958421,
- 0.16896003, 0.15998861, 0.1521363,  0.14548225, 0.13970375, 0.13492789,
- 0.1308826,  0.12774628, 0.12513451, 0.12323408, 0.12201979, 0.12136009,
- 0.12116872, 0.1219292,  0.12322336, 0.12508808, 0.12761044, 0.13095177,
- 0.13501038, 0.13963516, 0.14539598, 0.152088,   0.15998725, 0.16893805,
- 0.1795447,  0.19171433, 0.20532266, 0.22155696, 0.23982129, 0.26133574,
- 0.28573014, 0.31487839, 0.34788917, 0.38594454, 0.43137213, 0.48372853,
- 0.5454154,  0.61883523, 0.70480926, 0.80706581, 0.92895005, 1.07022308,
- 1.2457885,  1.45749148, 1.71271087, 2.01925837]
-k_inv = [4.76925874e-10, 0.0993818875, 0.0916540223, 8.46897895e-02,
- 0.0784409609, 7.28320650e-02, 6.80190922e-02, 6.35841430e-02,
- 5.95094043e-02, 5.58310454e-02, 5.26640363e-02, 4.97054541e-02,
- 4.69978025e-02, 4.45177813e-02, 4.23654649e-02, 4.04378962e-02,
- 3.86589050e-02, 3.70205242e-02, 3.56085642e-02, 0.0342795268,
- 3.30799430e-02, 3.19991221e-02, 3.10849939e-02, 3.02119377e-02,
- 2.94791009e-02, 2.88138000e-02, 2.82510955e-02, 2.77462669e-02,
- 2.73390991e-02, 2.69876536e-02, 2.67390439e-02, 2.65217608e-02,
- 2.63815431e-02, 2.63181637e-02, 0.0263071482, 2.63314161e-02,
- 2.64966087e-02, 2.67110005e-02, 2.69800531e-02, 2.73183629e-02,
- 2.77547647e-02, 2.82594840e-02, 2.87924171e-02, 2.94601516e-02,
- 3.02058061e-02, 3.10678647e-02, 3.19959150e-02, 3.30824697e-02,
- 3.42807319e-02, 0.0355401056, 3.70310466e-02, 3.86085863e-02,
- 4.04222443e-02, 4.23567414e-02, 4.46236467e-02, 4.70146541e-02,
- 4.96139524e-02, 5.26176144e-02, 5.58459347e-02, 5.94495793e-02,
- 6.35239017e-02, 6.79658761e-02, 7.29283781e-02, 7.84640874e-02,
- 8.42840785e-02, 9.12506998e-02, 9.90421072e-02, 1.07706337e-01,
- 0.117222005]
-k_optimized = k + k_inv
+    # 记录目标函数值
+    objective_values = []
 
-initial_conditions = [5 + 0.04897613262384214 / 2, 5 - 0.04897613262384214 / 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    # 第一次优化
+    result_first = minimize(Optimize_K_Model.objective, initial_guess, method='L-BFGS-B', bounds=bounds, callback=Optimize_K_Model.callback)
+    k_optimized = result_first.x
+    final_precision = result_first.fun
+    print(f"第一次优化的最终精度是{final_precision}")
 
-t = np.linspace(0, 20000, 10000)
+    # 如果第一次优化不理想，进行二次优化
+    if result_first.fun > 1e-08:
+        for i in range(5):
+            print(f"第{i+1}次优化不理想，进行第{i+2}次优化。")
+            initial_guess = Optimize_K_Model.correct_k_values(k_optimized[:70], k_optimized[70:], window_size=5)
+            print(f"修正后的初始值{initial_guess}")
+            result = minimize(Optimize_K_Model.objective, initial_guess, method='L-BFGS-B', bounds=bounds, callback=Optimize_K_Model.callback)
+            k_optimized = result.x
+            final_precision = result.fun
+            print(f"第{i+2}次优化的最终精度{final_precision}")
+            if final_precision < 1e-08:
+                break
 
-sol = odeint(equations, initial_conditions, t, args=(k_optimized,))
+    print("最终优化的精度", final_precision)
 
-p = [0, 0, 0.04897613262384214, 0.05332115144846119, 0.05790669973927187, 0.0627295789592901, 0.06778446847301522, 0.07306380424320208, 0.07855767670787021,
-     0.08425375096951461, 0.09013721227181279, 0.09619073950869864, 0.1023945092062209, 0.10872623204074064, 0.1151612235113411, 0.12167250987545432,
-     0.12823096989226745, 0.13480551230800494, 0.141363288371998, 0.1478699380054199, 0.1542898675698355, 0.16058655651540155, 0.16672288954434838,
-     0.17266151032014984, 0.1783651922021426, 0.18379722100418827, 0.18892178437800974, 0.1937043621192292, 0.1981121114970545, 0.20211424162482503,
-     0.2056823709234541, 0.20879086188553456, 0.21141712762388903, 0.213541905080964, 0.2151494902780116, 0.21622793158591969, 0.21676917769061635,
-     0.21676917769061635, 0.21622793158591969, 0.2151494902780116, 0.213541905080964, 0.21141712762388903, 0.20879086188553456, 0.2056823709234541,
-     0.20211424162482503, 0.1981121114970545, 0.1937043621192292, 0.18892178437800974, 0.18379722100418827, 0.1783651922021426, 0.17266151032014984,
-     0.16672288954434838, 0.16058655651540155, 0.1542898675698355, 0.1478699380054199, 0.141363288371998, 0.13480551230800494, 0.12823096989226745,
-     0.12167250987545432, 0.1151612235113411, 0.10872623204074064, 0.1023945092062209, 0.09619073950869864, 0.09013721227181279, 0.08425375096951461,
-     0.07855767670787021, 0.07306380424320208, 0.06778446847301522, 0.0627295789592901, 0.05790669973927187, 0.05332115144846119, 0.04897613262384214]
+    # 输出优化结果
+    k_result = {f"k{i}": c for i, c in enumerate(k_optimized[:70], start=0)}
+    k_inv_result = [0.00000001] + list(k_optimized[70:])
+    k_inv_result = {f"k{i}_inv": c for i, c in enumerate(k_inv_result, start=1)}
+    print(f"改变k{x[i]}后优化后的k", k_result)
+    print(f"改变k{x[i]}后优化后的k_inv", k_inv_result)
 
-print("实际最终浓度", sol[-1])
+    # 利用优化后的参数进行模拟
+    initial_conditions = [5 + (concentrations[0] / 2.0), 5 - (concentrations[0] / 2.0)] + [0] * 70
+    t = np.linspace(0, 10000, 5000)
+    sol = odeint(Optimize_K_Model.equations, initial_conditions, t, args=(k_optimized,))
 
-Deviation = [0] * 72
+    Deviation = [0] * 72
+    p = [0, 0] + list(concentrations)
+    for i in range(72):
+        Deviation[i] = p[i] - sol[-1][i]
 
-for i in range(72):
-    Deviation[i] = p[i] - sol[-1][i]
+    deviations = {f'P{i}': c for i, c in enumerate(Deviation[2:], start=1)}
+    print("P1-P70理想最终浓度和实际最终浓度的差值是", deviations)
 
-print("理想最终浓度和实际最终浓度的差值是", Deviation)
+    # 绘制浓度曲线
+    plt.figure(figsize=(50, 20))
+    plt.xlabel("P-concentrations")
+    plt.ylabel("concentration")
+    plt.title("Normal distribution of Concentrations")
+    plt.xticks(x_values)
+    plt.plot(x_values, concentrations, marker='o', linestyle='-')
+    plt.grid(True)
+    plt.show()
 
-sum = 0
+    # 绘制各个物质的浓度变化曲线
+    Optimize_K_Model.plot_concentration_curves(t, sol)
 
-for i in range(71):
-    sum += float(Deviation[i])
-
-print(sum)
-
-# 各个物质的浓度变化曲线图
-plt.figure(figsize = (10, 6))
-plt.plot(t, sol[:, 0], label = 'p0')
-plt.plot(t, sol[:, 1], label = 'w')
-plt.legend()
-plt.xlabel('Time')
-plt.ylabel('Concentration')
-plt.title('P0,W Concentration over Time')
-plt.grid(True)
-plt.show()
-
-# 各个物质的浓度变化曲线图
-plt.figure(figsize = (50, 6))
-for i in range(2, 12):
-    plt.plot(t, sol[:, i], label = f'p{i-1}')
-plt.legend()
-plt.xlabel('Time')
-plt.ylabel('Concentration')
-plt.title('P1-P10 Concentration over Time')
-plt.grid(True)
-plt.show()
-
-# 各个物质的浓度变化曲线图
-plt.figure(figsize = (50, 6))
-for i in range(12, 32):
-    plt.plot(t, sol[:, i], label = f'p{i-1}')
-plt.legend()
-plt.xlabel('Time')
-plt.ylabel('Concentration')
-plt.title('P11-P30 Concentration over Time')
-plt.grid(True)
-plt.show()
-
-# 各个物质的浓度变化曲线图
-plt.figure(figsize = (50, 6))
-for i in range(32, 52):
-    plt.plot(t, sol[:, i], label = f'p{i-1}')
-plt.legend()
-plt.xlabel('Time')
-plt.ylabel('Concentration')
-plt.title('P31-P50 Concentration over Time')
-plt.grid(True)
-plt.show()
-
-# 各个物质的浓度变化曲线图
-plt.figure(figsize = (50, 6))
-for i in range(52, 72):
-    plt.plot(t, sol[:, i], label = f'p{i-1}')
-plt.legend()
-plt.xlabel('Time')
-plt.ylabel('Concentration')
-plt.title('P51-P70 Concentration over Time')
-plt.grid(True)
-plt.show()
-
-# 绘制动态平衡时各个物质的浓度曲线图
-plt.figure(figsize=(50, 6))
-final_concentrations = sol[-1, 2:]
-labels = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11', 'p12', 'p13', 'p14', 'p15', 'p16', 'p17', 'p18', 'p19', 'p20', 'P21', 'P22', 'P23', 'P24', 'P25', 'P26', 'P27', 'P28', 'P29', 'P30', 'p31', 'p32', 'p33', 'p34', 'p35', 'p36', 'p37', 'p38', 'p39', 'p40', 'p41', 'p42', 'p43', 'p44', 'p45', 'p46', 'p47', 'p48', 'p49', 'p50', 'p51', 'p52', 'p53', 'p54', 'p55', 'p56', 'p57', 'p58', 'p59', 'p60', 'p61', 'p62', 'p63', 'p64', 'p65', 'p66', 'p67', 'p68', 'p69', 'p70']
-plt.plot(labels, final_concentrations, 'o-', label = 'Simulated')
-plt.xlabel('Species')
-plt.ylabel('Concentration at Equilibrium')
-plt.title('Concentrations at Equilibrium')
-plt.grid(True)
-plt.show()
-
-# 相近物质的浓度变化曲线图
-plt.figure(figsize = (50, 6))
-for i in range(31, 39):
-    plt.plot(t, sol[:, i], label = f'p{i-1}')
-plt.legend()
-plt.xlabel('Time')
-plt.ylabel('Concentration')
-plt.title('P30-P37 Concentration over Time')
-plt.grid(True)
-plt.show()
+    # 绘制动态平衡时各个物质的浓度曲线图
+    plt.figure(figsize=(50, 20))
+    final_concentrations = sol[-1, 2:]
+    labels = [f'p{i + 1}' for i in range(70)]
+    plt.plot(labels, final_concentrations, 'o-', label='Simulated')
+    plt.xlabel('Species')
+    plt.ylabel('Concentration at Equilibrium')
+    plt.title('Concentrations at Equilibrium')
+    plt.grid(True)
+    plt.show()
