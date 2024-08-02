@@ -23,7 +23,6 @@ def initialize_k_values(concentrations):
         k_inv[i - 2] = k_inv[i - 3] * concentrations[i - 1] / concentrations[i]
     return list(k) + list(k_inv)
 
-
 # 定义微分方程
 def equations(p, t, k_values):
     k = k_values[:70]
@@ -218,11 +217,11 @@ for i in range(72):
 deviations = {f'P{i}': c for i, c in enumerate(Deviation[2:], start=1)}
 print("P1-P70理想最终浓度和实际最终浓度的差值是", deviations)
 
-# 绘制浓度曲线
+# 绘制理想稳态浓度曲线
 plt.figure(figsize=(50, 20))
 plt.xlabel("P-concentrations")
 plt.ylabel("concentration")
-plt.title("Normal distribution of Concentrations")
+plt.title("Ideal Normal distribution of Concentrations")
 plt.xticks(x_values)
 plt.plot(x_values, concentrations, marker='o', linestyle='-')
 plt.grid(True)

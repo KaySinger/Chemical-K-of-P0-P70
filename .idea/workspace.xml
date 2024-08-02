@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35554908-74d6-435f-9b50-180ecfb9c8f2" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/Optimize_K_Model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rubustness_Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rubustness_Test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diffusions of P0-P70 with W.py" beforeDir="false" afterPath="$PROJECT_DIR$/diffusions of P0-P70 with W.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Optimize_K_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Optimize_K_Model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ratio.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Seventy_diffusions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Verify.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,37 +39,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.1.executor": "Run",
-    "Python.DiffiticialEquation.executor": "Run",
-    "Python.Model Rubustness Test.executor": "Run",
-    "Python.Optimize_K_Model.executor": "Run",
-    "Python.Rubustness_Test.executor": "Run",
-    "Python.Seventy_diffusions.executor": "Run",
-    "Python.Verify.executor": "Run",
-    "Python.diffusion.executor": "Run",
-    "Python.diffusions of P0-P70 with W.executor": "Run",
-    "Python.initial_k_guess.executor": "Run",
-    "Python.initial_k_guess_with_w.executor": "Run",
-    "Python.more_diffusions.executor": "Run",
-    "Python.ten_diffusions.executor": "Run",
-    "Python.test.executor": "Run",
-    "Python.test2.executor": "Run",
-    "Python.test_big.executor": "Run",
-    "Python.zhengtai.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/PyProject/minimizeK",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.DiffiticialEquation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Model Rubustness Test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Optimize_K_Model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Rubustness_Test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Seventy_diffusions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Verify.executor&quot;: &quot;Run&quot;,
+    &quot;Python.diffusion.executor&quot;: &quot;Run&quot;,
+    &quot;Python.diffusions of P0-P70 with W.executor&quot;: &quot;Run&quot;,
+    &quot;Python.initial_k_guess.executor&quot;: &quot;Run&quot;,
+    &quot;Python.initial_k_guess_with_w.executor&quot;: &quot;Run&quot;,
+    &quot;Python.more_diffusions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ten_diffusions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_big.executor&quot;: &quot;Run&quot;,
+    &quot;Python.zhengtai.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/PyProject/minimizeK&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\PyProject\minimizeK" />
@@ -122,6 +124,7 @@
       <workItem from="1721962933011" duration="77860000" />
       <workItem from="1722309180086" duration="31167000" />
       <workItem from="1722390368023" duration="39078000" />
+      <workItem from="1722582814112" duration="2716000" />
     </task>
     <servers />
   </component>
