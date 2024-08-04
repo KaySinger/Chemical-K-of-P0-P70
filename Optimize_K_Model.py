@@ -58,13 +58,9 @@ def callback(xk):
 def moving_average(data, window_size):
     return np.convolve(data, np.ones(window_size)/window_size, mode='same')
 
-def correct_k_values(k, k_inv, window_size=5):
-    # 对 k 和 k_inv 进行移动平均平滑处理
-    k_smoothed = moving_average(k, window_size)
-    k_inv_smoothed = moving_average(k_inv, window_size)
-
-    k_initial = k_smoothed[2:]
-    k_inv_initial = k_inv_smoothed
+def correct_k_values(k, k_inv):
+    k_initial = k[2:]
+    k_inv_initial = k_inv
 
     # 找到中间点
     k_mid_index = len(k_initial) // 2
@@ -80,7 +76,7 @@ def correct_k_values(k, k_inv, window_size=5):
 
     # 合并前半段和后半段
     k_adjusted = k_front + k_back
-    k_adjusted = list(k_smoothed[:2]) + list(k_adjusted)
+    k_adjusted = list(k[:2]) + list(k_adjusted)
     k_inv_adjusted = k_inv_front + k_inv_back
 
     return list(k_adjusted) + list(k_inv_adjusted)
@@ -184,14 +180,19 @@ print(f"第一次优化的最终精度是{final_precision}")
 
 # 如果第一次优化不理想，进行二次优化
 if result_first.fun > 1e-08:
+    # 对优化不理想的k值进行修正操作
+    k_smoothed = moving_average(k_optimized[:70], window_size=5)
+    k_inv_smoothed = moving_average(k_optimized[70:], window_size=5)
+    k_optimized = list(k_smoothed) + list(k_inv_smoothed)
+    initial_guess = correct_k_values(k_optimized[:70], k_inv_smoothed[:70])
+    print("修正后的k值", initial_guess)
     for i in range(5):
         print(f"第{i+1}次优化不理想，进行第{i+2}次优化。")
-        initial_guess = correct_k_values(k_optimized[:70], k_optimized[70:], window_size=5)
-        print(f"修正后的初始值{initial_guess}")
         result = minimize(objective, initial_guess, method='L-BFGS-B', bounds=bounds, callback=callback)
         k_optimized = result.x
         final_precision = result.fun
         print(f"第{i+2}次优化的最终精度{final_precision}")
+        initial_guess = k_optimized
         if final_precision < 1e-08:
             break
 
