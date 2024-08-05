@@ -211,12 +211,16 @@ t = np.linspace(0, 10000, 5000)
 sol = odeint(equations, initial_conditions, t, args=(k_optimized,))
 
 Deviation = [0] * 72
+Error = [0] * 72
 p = [0, 0] + list(concentrations)
 for i in range(72):
     Deviation[i] = p[i] - sol[-1][i]
+    Error[i] = Deviation[i] / p[i]
 
 deviations = {f'P{i}': c for i, c in enumerate(Deviation[2:], start=1)}
+Error_Ratio = {f'Error Ratio of P{i}': c for i, c in enumerate(Error[2:], start=1)}
 print("P1-P70理想最终浓度和实际最终浓度的差值是", deviations)
+print("P1-P70优化的误差是", Error_Ratio)
 
 # 绘制理想稳态浓度曲线
 plt.figure(figsize=(50, 20))
