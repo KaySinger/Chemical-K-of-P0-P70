@@ -18,7 +18,7 @@ scale_factor = 10
 concentrations, x_values = Optimize_K_Model.simulate_normal_distribution(mu, sigma, total_concentration=1.0, scale_factor=scale_factor)
 print("理想稳态浓度分布", {f'P{i}': c for i, c in enumerate(concentrations, start=1)})
 
-for degree in range(4, 6):
+for degree in range(1, 6):
     # 初始K值猜测
     initial_guess = Optimize_K_Model.initialize_k_values(concentrations)
     k = initial_guess[:70]
@@ -47,14 +47,15 @@ for degree in range(4, 6):
         k_optimized = list(k_smoothed) + list(k_inv_smoothed)
         initial_guess = Optimize_K_Model.correct_k_values(k_optimized[:70], k_optimized[70:])
         print(f"修正后的初始值{initial_guess}")
-        for i in range(10):
-            print(f"第{i+1}次优化不理想，进行第{i+2}次优化。")
-            result = minimize(Optimize_K_Model.objective, initial_guess, method='L-BFGS-B', bounds=bounds, callback=Optimize_K_Model.callback)
-            k_optimized = result.x
-            final_precision = result.fun
-            print(f"第{i+2}次优化的最终精度{final_precision}")
-            initial_guess = k_optimized
-            if final_precision < 1e-08:
+        for i in range(50):
+            if final_precision > 1e-08:
+                print(f"第{i+1}次优化不理想，进行第{i+2}次优化。")
+                result = minimize(Optimize_K_Model.objective, initial_guess, method='L-BFGS-B', bounds=bounds, callback=Optimize_K_Model.callback)
+                k_optimized = result.x
+                final_precision = result.fun
+                print(f"第{i+2}次优化的最终精度{final_precision}")
+                initial_guess = k_optimized
+            else:
                 break
 
     print("最终优化的精度", final_precision)
@@ -71,34 +72,46 @@ for degree in range(4, 6):
     t = np.linspace(0, 10000, 5000)
     sol = odeint(Optimize_K_Model.equations, initial_conditions, t, args=(k_optimized,))
 
-    Deviation = [0] * 72
-    p = [0, 0] + list(concentrations)
-    for i in range(72):
-        Deviation[i] = p[i] - sol[-1][i]
+    Deviation = [0] * 70
+    Error = [0] * 70
+    p = list(concentrations)
+    for i in range(70):
+        Deviation[i] = p[i] - sol[-1][i + 2]
+        if p[i] != 0:
+            Error[i] = Deviation[i] / p[i]
+        else:
+            Error[i] = float('inf')
 
-    deviations = {f'P{i}': c for i, c in enumerate(Deviation[2:], start=1)}
+    deviations = {f'P{i}': c for i, c in enumerate(Deviation, start=1)}
+    Error_Ratio = {f'Error Ratio of P{i}': c for i, c in enumerate(Error, start=1)}
     print("P1-P70理想最终浓度和实际最终浓度的差值是", deviations)
+    print("P1-P70实际浓度与理想浓度的误差比值是", Error_Ratio)
 
-    # 绘制浓度曲线
-    plt.figure(figsize=(50, 20))
-    plt.xlabel("P-concentrations")
-    plt.ylabel("concentration")
-    plt.title("Normal distribution of Concentrations")
-    plt.xticks(x_values)
-    plt.plot(x_values, concentrations, marker='o', linestyle='-')
+    x_values = [f'P{i}' for i in range(1, 71)]
+
+    # 绘制理想稳态浓度曲线
+    plt.figure(figsize=(20, 10))
+    plt.xlabel("P-Species")
+    plt.ylabel("P-Concentrations")
+    plt.title("Ideal Concentrations and Actual Concentrations")
+    plt.xticks(range(len(x_values)), x_values, rotation=90)
+    final_concentrations = sol[-1, 2:]
+    plt.plot(range(len(x_values)), concentrations, label='Ideal Concentrations', marker='o', linestyle='-',
+             color='blue')
+    plt.plot(range(len(x_values)), final_concentrations, label='Actual Concentrations', marker='o', linestyle='-',
+             color='red')
     plt.grid(True)
     plt.show()
 
     # 绘制各个物质的浓度变化曲线
     Optimize_K_Model.plot_concentration_curves(t, sol)
 
-    # 绘制动态平衡时各个物质的浓度曲线图
-    plt.figure(figsize=(50, 20))
-    final_concentrations = sol[-1, 2:]
-    labels = [f'p{i + 1}' for i in range(70)]
-    plt.plot(labels, final_concentrations, 'o-', label='Simulated')
-    plt.xlabel('Species')
-    plt.ylabel('Concentration at Equilibrium')
-    plt.title('Concentrations at Equilibrium')
+    # 优化k值后P1-P70实际浓度与理想浓度的误差比值
+    plt.figure(figsize=(20, 10))
+    plt.xlabel("P-Species")
+    plt.ylabel("P-Error-Ratio")
+    plt.title("Error Ratio of Concentrations between Ideal and Actual")
+    plt.xticks(range(len(x_values)), x_values, rotation=90)
+    plt.plot(range(len(x_values)), Error, label='Error-Ratio', marker='o', linestyle='-', color='blue')
     plt.grid(True)
     plt.show()
