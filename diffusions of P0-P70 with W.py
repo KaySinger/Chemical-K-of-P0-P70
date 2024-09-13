@@ -2,7 +2,7 @@ import numpy as np
 from scipy.optimize import minimize
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
-import initial_k_guess_with_w # 正态分布及初始k值猜测
+import Connection_k_kinv # 正态分布及初始k值猜测
 
 
 concentrations = initial_k_guess_with_w.concentrations

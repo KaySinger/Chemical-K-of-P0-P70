@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35554908-74d6-435f-9b50-180ecfb9c8f2" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/Model2_P40_Mulitiway.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model_P40_MultiWay_P1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model_P40_Singleway.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Optimize_K_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Optimize_K_Model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rubustness_Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rubustness_Test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diffusions of P0-P70 with W.py" beforeDir="false" afterPath="$PROJECT_DIR$/diffusions of P0-P70 with W.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial_k_guess.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial_k_guess_with_w.py" beforeDir="false" afterPath="$PROJECT_DIR$/Connection_k_kinv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Information_Test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,11 +46,20 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Python.1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Connection_k_kinv.executor&quot;: &quot;Run&quot;,
     &quot;Python.DiffiticialEquation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Information_Test.executor&quot;: &quot;Run&quot;,
     &quot;Python.Model Rubustness Test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Model1_P5_Mulitiway.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Model2_P40_Mulitiway.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Model2_P5_Mulitiway.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Model_P10_Mulitiway.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Model_P40.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Model_P40_Singleway.executor&quot;: &quot;Run&quot;,
     &quot;Python.Optimize_K_Model.executor&quot;: &quot;Run&quot;,
     &quot;Python.Rubustness_Test.executor&quot;: &quot;Run&quot;,
     &quot;Python.Seventy_diffusions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Test_Mulitiway.executor&quot;: &quot;Run&quot;,
     &quot;Python.Verify.executor&quot;: &quot;Run&quot;,
     &quot;Python.diffusion.executor&quot;: &quot;Run&quot;,
     &quot;Python.diffusions of P0-P70 with W.executor&quot;: &quot;Run&quot;,
@@ -124,7 +140,19 @@
       <workItem from="1722582814112" duration="2716000" />
       <workItem from="1722667892092" duration="13054000" />
       <workItem from="1722774731691" duration="242000" />
-      <workItem from="1722839353246" duration="17942000" />
+      <workItem from="1722839353246" duration="22335000" />
+      <workItem from="1722992404900" duration="17129000" />
+      <workItem from="1723178806861" duration="1076000" />
+      <workItem from="1723183713714" duration="6589000" />
+      <workItem from="1724899773362" duration="1488000" />
+      <workItem from="1725246018502" duration="1808000" />
+      <workItem from="1725431909078" duration="5541000" />
+      <workItem from="1725503630243" duration="9510000" />
+      <workItem from="1725675546657" duration="10570000" />
+      <workItem from="1725758522465" duration="8592000" />
+      <workItem from="1725849985941" duration="1283000" />
+      <workItem from="1726104361864" duration="20974000" />
+      <workItem from="1726204592792" duration="4707000" />
     </task>
     <servers />
   </component>
@@ -137,21 +165,31 @@
     <SUITE FILE_PATH="coverage/minimizeK$Rubustness_Test.coverage" NAME="Rubustness_Test 覆盖结果" MODIFIED="1720780307609" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$diffusions_of_P0_P70_with_W.coverage" NAME="diffusions of P0-P70 with W 覆盖结果" MODIFIED="1722415466138" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Model_Rubustness_Test.coverage" NAME="Model Rubustness Test 覆盖结果" MODIFIED="1722413169278" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/minimizeK$initial_k_guess.coverage" NAME="initial_k_guess 覆盖结果" MODIFIED="1720776584271" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Information_Test.coverage" NAME="Information_Test 覆盖结果" MODIFIED="1723189956044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/minimizeK$test_big.coverage" NAME="test_big 覆盖结果" MODIFIED="1719207929569" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Optimize_K_Model.coverage" NAME="Optimize_K_Model 覆盖结果" MODIFIED="1722842588438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/minimizeK$ten_diffusions.coverage" NAME="ten_diffusions 覆盖结果" MODIFIED="1719632757280" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Optimize_K_Model.coverage" NAME="Optimize_K_Model 覆盖结果" MODIFIED="1724900007035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/minimizeK$test.coverage" NAME="test 覆盖结果" MODIFIED="1719132992720" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/minimizeK$Verify.coverage" NAME="Verify 覆盖结果" MODIFIED="1720597040057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/minimizeK$diffusion.coverage" NAME="diffusion 覆盖结果" MODIFIED="1719207318333" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Test_Mulitiway.coverage" NAME="Test_Mulitiway 覆盖结果" MODIFIED="1726210088813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Model2_P40_Mulitiway.coverage" NAME="Model2_P40_Mulitiway 覆盖结果" MODIFIED="1726113425912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/minimizeK$1.coverage" NAME="1 覆盖结果" MODIFIED="1721026883888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/minimizeK$test2.coverage" NAME="test2 覆盖结果" MODIFIED="1720762493884" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/minimizeK$Seventy_diffusions.coverage" NAME="Seventy_diffusions 覆盖结果" MODIFIED="1720584015070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$initial_k_guess_with_w.coverage" NAME="initial_k_guess_with_w 覆盖结果" MODIFIED="1722064227267" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Model_P10_Mulitiway.coverage" NAME="Model_P10_Mulitiway 覆盖结果" MODIFIED="1725692920809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Model_P40.coverage" NAME="Model_P40 覆盖结果" MODIFIED="1725437138336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/minimizeK$initial_k_guess.coverage" NAME="initial_k_guess 覆盖结果" MODIFIED="1720776584271" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Model1_P5_Mulitiway.coverage" NAME="Model1_P5_Mulitiway 覆盖结果" MODIFIED="1725850974362" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/minimizeK$ten_diffusions.coverage" NAME="ten_diffusions 覆盖结果" MODIFIED="1719632757280" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/minimizeK$Verify.coverage" NAME="Verify 覆盖结果" MODIFIED="1720597040057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$DiffiticialEquation.coverage" NAME="DiffiticialEquation 覆盖结果" MODIFIED="1725765397153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Model2_P5_Mulitiway.coverage" NAME="Model2_P5_Mulitiway 覆盖结果" MODIFIED="1725774782638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/minimizeK$more_diffusions.coverage" NAME="more_diffusions 覆盖结果" MODIFIED="1720776872452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/minimizeK$diffusions_of_P0_P70_with_W.coverage" NAME="diffusions of P0-P70 with W 覆盖结果" MODIFIED="1721028091884" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$zhengtai.coverage" NAME="zhengtai 覆盖结果" MODIFIED="1721186427910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/minimizeK$1.coverage" NAME="1 覆盖结果" MODIFIED="1721026883888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Rubustness_Test.coverage" NAME="Rubustness_Test 覆盖结果" MODIFIED="1722857166607" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/minimizeK$test2.coverage" NAME="test2 覆盖结果" MODIFIED="1720762493884" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/minimizeK$Seventy_diffusions.coverage" NAME="Seventy_diffusions 覆盖结果" MODIFIED="1720584015070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Rubustness_Test.coverage" NAME="Rubustness_Test 覆盖结果" MODIFIED="1722992852510" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Model_P40_Singleway.coverage" NAME="Model_P40_Singleway 覆盖结果" MODIFIED="1726108020496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$Connection_k_kinv.coverage" NAME="Connection_k_kinv 覆盖结果" MODIFIED="1726109239246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/minimizeK$initial_k_guess_with_w.coverage" NAME="initial_k_guess_with_w 覆盖结果" MODIFIED="1721027890869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/diffusions_of_P0_P70_with_W_py$initial_k_guess_with_w.coverage" NAME="initial_k_guess_with_w 覆盖结果" MODIFIED="1722064227267" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

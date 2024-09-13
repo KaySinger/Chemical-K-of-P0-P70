@@ -17,15 +17,17 @@ sigma = 20
 scale_factor = 10
 concentrations, x_values = Optimize_K_Model.simulate_normal_distribution(mu, sigma, total_concentration=1.0, scale_factor=scale_factor)
 print("理想稳态浓度分布", {f'P{i}': c for i, c in enumerate(concentrations, start=1)})
+x = [2, 20, 35, 50, 69]
 
-for degree in range(1, 6):
+for i in range(len(x)):
     # 初始K值猜测
     initial_guess = Optimize_K_Model.initialize_k_values(concentrations)
     k = initial_guess[:70]
+    k[x[i]] = 5
     k_inv = initial_guess[70:]
-    k = add_perturbation_to_k(k, perturbation_factor=0.5 * degree)
     initial_guess = list(k) + list(k_inv)
-    print("随机噪声干扰后的初始值猜测:", initial_guess)
+    print("单个k值改变后的初始值猜测:", {f'k{i}': c for i, c in enumerate(k, start=0)})
+    print("k_inv值保持不变:", {f'k{i}_inv': c for i, c in enumerate(k_inv, start=1)})
 
     # 添加参数约束，确保所有k值都是非负的
     bounds = [(0, 5)] * 70 + [(0, 0.5)] * 68  # 确保长度为 139
