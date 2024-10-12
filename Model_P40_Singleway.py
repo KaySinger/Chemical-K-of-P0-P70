@@ -1,8 +1,12 @@
 import numpy as np
 import math
+<<<<<<< HEAD
 import matplotlib
 matplotlib.use('TkAgg')
 from scipy.optimize import minimize, curve_fit
+=======
+from scipy.optimize import minimize
+>>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -22,7 +26,11 @@ def initialize_k_values(concentrations):
     k_inv = np.zeros(39)
     k[0] = 1
     for i in range(1, 40):
+<<<<<<< HEAD
         k[i] = 0.5 * math.log(2**i)
+=======
+        k[i] = math.log(2**i)
+>>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
     for i in range(0, 39):
         k_inv[i] = k[i+1] * concentrations[i]**2 / concentrations[i+1]
     return list(k) + list(k_inv)
@@ -53,7 +61,11 @@ def equations(p, t, k_values):
 # 定义目标函数
 def objective(k):
     initial_conditions = [10] + [0] * 40
+<<<<<<< HEAD
     t = np.linspace(0, 500, 500)
+=======
+    t = np.linspace(0, 2000, 1000)
+>>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
     sol = odeint(equations, initial_conditions, t, args=(k,))
     final_concentrations = sol[-1, :]  # 忽略 p0 和 w
     target_concentrations = [0] + list(concentrations)
@@ -80,7 +92,11 @@ def plot_concentration_curves(t, sol):
     plt.grid(True)
     plt.show()
 
+<<<<<<< HEAD
     plt.figure(figsize=(15, 8))
+=======
+    plt.figure(figsize=(20, 10))
+>>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
     for i in range(11, 21):
         plt.plot(t, sol[:, i], label=f'p{i}')
     plt.legend()
@@ -90,7 +106,11 @@ def plot_concentration_curves(t, sol):
     plt.grid(True)
     plt.show()
 
+<<<<<<< HEAD
     plt.figure(figsize=(15, 8))
+=======
+    plt.figure(figsize=(20, 10))
+>>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
     for i in range(21, 31):
         plt.plot(t, sol[:, i], label=f'p{i}')
     plt.legend()
@@ -100,7 +120,11 @@ def plot_concentration_curves(t, sol):
     plt.grid(True)
     plt.show()
 
+<<<<<<< HEAD
     plt.figure(figsize=(15, 8))
+=======
+    plt.figure(figsize=(20, 10))
+>>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
     for i in range(31, 41):
         plt.plot(t, sol[:, i], label=f'p{i}')
     plt.legend()
@@ -169,6 +193,7 @@ objective_values = []
 result_first = minimize(objective, initial_guess, method='L-BFGS-B', bounds=bounds, callback=callback)
 k_optimized = result_first.x
 final_precision = result_first.fun
+<<<<<<< HEAD
 print("第一次优化的精度", final_precision)
 
 # 如果第一次优化不理想，进行二次优化
@@ -186,18 +211,29 @@ if result_first.fun > 1e-08:
             initial_guess = k_optimized
         else:
             break
+=======
+>>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
 
 print("最终优化的精度", final_precision)
 
 # 输出优化结果
 k_result = {f"k{i}": c for i, c in enumerate(k_optimized[:40], start=0)}
 k_inv_result = {f"k{i}_inv": c for i, c in enumerate(k_optimized[40:], start=1)}
+<<<<<<< HEAD
 print("优化后的k:", k_result)
 print("优化后的k_inv:", k_inv_result)
 
 # 利用优化后的参数进行模拟
 initial_conditions = [10] + [0] * 40
 t = np.linspace(0, 500, 500)
+=======
+print("优化后的k", k_result)
+print("k_inv", k_inv_result)
+
+# 利用优化后的参数进行模拟
+initial_conditions = [10] + [0] * 40
+t = np.linspace(0, 2000, 1000)
+>>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
 sol = odeint(equations, initial_conditions, t, args=(k_optimized,))
 print(sol)
 
