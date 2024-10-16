@@ -1,12 +1,8 @@
 import numpy as np
 import math
-<<<<<<< HEAD
 import matplotlib
 matplotlib.use('TkAgg')
 from scipy.optimize import minimize, curve_fit
-=======
-from scipy.optimize import minimize
->>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -24,13 +20,9 @@ def simulate_normal_distribution(mu, sigma, total_concentration, scale_factor):
 def initialize_k_values(concentrations):
     k = np.zeros(40)
     k_inv = np.zeros(39)
-    k[0] = 1
+    k[0] = 2
     for i in range(1, 40):
-<<<<<<< HEAD
-        k[i] = 0.5 * math.log(2**i)
-=======
-        k[i] = math.log(2**i)
->>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
+        k[i] = math.log(2**(i+1))
     for i in range(0, 39):
         k_inv[i] = k[i+1] * concentrations[i]**2 / concentrations[i+1]
     return list(k) + list(k_inv)
@@ -61,11 +53,7 @@ def equations(p, t, k_values):
 # 定义目标函数
 def objective(k):
     initial_conditions = [10] + [0] * 40
-<<<<<<< HEAD
-    t = np.linspace(0, 500, 500)
-=======
-    t = np.linspace(0, 2000, 1000)
->>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
+    t = np.linspace(0, 100, 500)
     sol = odeint(equations, initial_conditions, t, args=(k,))
     final_concentrations = sol[-1, :]  # 忽略 p0 和 w
     target_concentrations = [0] + list(concentrations)
@@ -92,11 +80,7 @@ def plot_concentration_curves(t, sol):
     plt.grid(True)
     plt.show()
 
-<<<<<<< HEAD
     plt.figure(figsize=(15, 8))
-=======
-    plt.figure(figsize=(20, 10))
->>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
     for i in range(11, 21):
         plt.plot(t, sol[:, i], label=f'p{i}')
     plt.legend()
@@ -106,11 +90,7 @@ def plot_concentration_curves(t, sol):
     plt.grid(True)
     plt.show()
 
-<<<<<<< HEAD
     plt.figure(figsize=(15, 8))
-=======
-    plt.figure(figsize=(20, 10))
->>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
     for i in range(21, 31):
         plt.plot(t, sol[:, i], label=f'p{i}')
     plt.legend()
@@ -120,11 +100,7 @@ def plot_concentration_curves(t, sol):
     plt.grid(True)
     plt.show()
 
-<<<<<<< HEAD
     plt.figure(figsize=(15, 8))
-=======
-    plt.figure(figsize=(20, 10))
->>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
     for i in range(31, 41):
         plt.plot(t, sol[:, i], label=f'p{i}')
     plt.legend()
@@ -167,6 +143,67 @@ def animate_concentration_curves(t, sol, num_substances=40, interval=1000):
                                   interval=interval)
     plt.show()
 
+def fit_lnk_lnp(pm, k_optimized):
+    diffs = np.diff(np.log(k_optimized[1:40]))
+
+    # 找到变化率最大的点作为分界点
+    split_index = max(np.argmax(np.abs(diffs)) + 1, 6)
+
+    # 分别拟合前后数据
+    popt1, _ = curve_fit(model, pm[:split_index], np.log(k_optimized[1:split_index + 1]), maxfev=1000)
+    popt2, _ = curve_fit(model, pm[split_index:], np.log(k_optimized[split_index + 1:40]), maxfev=1000)
+
+    # 拟合得到的参数
+    a1, x1 = popt1
+    a2, x2 = popt2
+    print(f"前半部分拟合参数: a = {a1}, x = {x1}")
+    print(f"后半部分拟合参数: a = {a2}, x = {x2}")
+
+    # 使用拟合参数绘制拟合曲线
+    P_fit1 = np.linspace(min(pm[:split_index]), max(pm[:split_index]), 100)
+    P_fit2 = np.linspace(min(pm[split_index:]), max(pm[split_index:]), 100)
+    k_fit1 = model(P_fit1, *popt1)
+    k_fit2 = model(P_fit2, *popt2)
+
+    # 创建子图
+    fig, axs = plt.subplots(3, 1, figsize=(10, 8))
+
+    # 绘制前半部分拟合
+    axs[0].scatter(pm[:split_index], np.log(k_optimized[1:split_index + 1]), label='Natural data')
+    axs[0].plot(P_fit1, k_fit1, color='red', label=f'ln(k) = {a1:.2f} * ln(2^n)^{x1:.2f}')
+    axs[0].set_xlabel('polymer')
+    axs[0].set_ylabel('ln(k)')
+    axs[0].legend()
+    axs[0].set_title('front curve_fitting')
+    axs[0].grid(True)
+
+    # 绘制后半部分拟合
+    axs[1].scatter(pm[split_index:], np.log(k_optimized[split_index + 1:40]), label='Natural data')
+    axs[1].plot(P_fit2, k_fit2, color='blue', label=f'ln(k) = {a2:.2f} * ln(2^n)^{x2:.2f}')
+    axs[1].set_xlabel('polymer')
+    axs[1].set_ylabel('ln(k)')
+    axs[1].legend()
+    axs[1].set_title('behind_curve_fitting')
+    axs[1].grid(True)
+
+    # 绘制前后加在一起的拟合
+    axs[2].scatter(pm, np.log(k_optimized[1:40]), label='Natural data')
+    axs[2].plot(P_fit1, k_fit1, color='red', label=f'front: ln(k) = {a1:.2f} * ln(2^n)^{x1:.2f}')
+    axs[2].plot(P_fit2, k_fit2, color='blue', label=f'behind: ln(k) = {a2:.2f} * ln(2^n)^{x2:.2f}')
+    axs[2].set_xlabel('polymer')
+    axs[2].set_ylabel('ln(k)')
+    axs[2].legend()
+    axs[2].set_title('curve_fitting')
+    axs[2].grid(True)
+
+    # 调整子图布局
+    plt.tight_layout()
+    plt.show()
+
+# 定义lnk = a * lnp ^ x的模型
+def model(P, a, x):
+    return a * P**x
+
 # 模拟正态分布
 mu = 20.5
 sigma = 10
@@ -193,7 +230,6 @@ objective_values = []
 result_first = minimize(objective, initial_guess, method='L-BFGS-B', bounds=bounds, callback=callback)
 k_optimized = result_first.x
 final_precision = result_first.fun
-<<<<<<< HEAD
 print("第一次优化的精度", final_precision)
 
 # 如果第一次优化不理想，进行二次优化
@@ -211,31 +247,19 @@ if result_first.fun > 1e-08:
             initial_guess = k_optimized
         else:
             break
-=======
->>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
 
 print("最终优化的精度", final_precision)
 
 # 输出优化结果
 k_result = {f"k{i}": c for i, c in enumerate(k_optimized[:40], start=0)}
 k_inv_result = {f"k{i}_inv": c for i, c in enumerate(k_optimized[40:], start=1)}
-<<<<<<< HEAD
 print("优化后的k:", k_result)
 print("优化后的k_inv:", k_inv_result)
 
 # 利用优化后的参数进行模拟
 initial_conditions = [10] + [0] * 40
-t = np.linspace(0, 500, 500)
-=======
-print("优化后的k", k_result)
-print("k_inv", k_inv_result)
-
-# 利用优化后的参数进行模拟
-initial_conditions = [10] + [0] * 40
-t = np.linspace(0, 2000, 1000)
->>>>>>> 2fc0056f5ae617d766207325c770edf67faaa7f8
+t = np.linspace(0, 100, 500)
 sol = odeint(equations, initial_conditions, t, args=(k_optimized,))
-print(sol)
 
 Deviation = [0] * 40
 Error = [0] * 40
@@ -254,66 +278,10 @@ print("P1-P70实际浓度与理想浓度的误差比值是:", Error_Ratio)
 
 x_values = [f'P{i}' for i in range(1, 41)]
 
-# 假设的模型：k = a * P^b
-def model(P, a, x):
-    return a * P**x
-
 # 初始化 pm 列表
 pm = [math.log(2**(i+1)) for i in range(39)]
 
-# 手动选择分界点（例如，选择第20个点作为分界点）
-split_index = 7
-
-# 分别拟合前后数据
-popt1, _ = curve_fit(model, pm[:split_index], np.log(k_optimized[1:split_index+1]), maxfev=1000)
-popt2, _ = curve_fit(model, pm[split_index:], np.log(k_optimized[split_index+1:40]), maxfev=1000)
-
-# 拟合得到的参数
-a1, x1 = popt1
-a2, x2 = popt2
-print(f"前半部分拟合参数: a = {a1}, x = {x1}")
-print(f"后半部分拟合参数: a = {a2}, x = {x2}")
-
-# 使用拟合参数绘制拟合曲线
-P_fit1 = np.linspace(min(pm[:split_index]), max(pm[:split_index]), 100)
-P_fit2 = np.linspace(min(pm[split_index:]), max(pm[split_index:]), 100)
-k_fit1 = model(P_fit1, *popt1)
-k_fit2 = model(P_fit2, *popt2)
-
-# 创建子图
-fig, axs = plt.subplots(3, 1, figsize=(10, 15))
-
-# 绘制前半部分拟合
-axs[0].scatter(pm[:split_index], np.log(k_optimized[1:split_index+1]), label='Natural data')
-axs[0].plot(P_fit1, k_fit1, color='red', label=f'ln(k) = {a1:.2f} * ln(2^n)^{x1:.2f}')
-axs[0].set_xlabel('polymer')
-axs[0].set_ylabel('ln(k)')
-axs[0].legend()
-axs[0].set_title('front curve_fitting')
-axs[0].grid(True)
-
-# 绘制后半部分拟合
-axs[1].scatter(pm[split_index:], np.log(k_optimized[split_index+1:40]), label='Natural data')
-axs[1].plot(P_fit2, k_fit2, color='blue', label=f'ln(k) = {a2:.2f} * ln(2^n)^{x2:.2f}')
-axs[1].set_xlabel('polymer')
-axs[1].set_ylabel('ln(k)')
-axs[1].legend()
-axs[1].set_title('behind_curve_fitting')
-axs[1].grid(True)
-
-# 绘制前后加在一起的拟合
-axs[2].scatter(pm, np.log(k_optimized[1:40]), label='Natural data')
-axs[2].plot(P_fit1, k_fit1, color='red', label=f'front: ln(k) = {a1:.2f} * ln(2^n)^{x1:.2f}')
-axs[2].plot(P_fit2, k_fit2, color='blue', label=f'behind: ln(k) = {a2:.2f} * ln(2^n)^{x2:.2f}')
-axs[2].set_xlabel('polymer')
-axs[2].set_ylabel('ln(k)')
-axs[2].legend()
-axs[2].set_title('curve_fitting')
-axs[2].grid(True)
-
-# 调整子图布局
-plt.tight_layout()
-plt.show()
+fit_lnk_lnp(pm, k_optimized)
 
 # 绘制理想稳态浓度曲线
 plt.figure(figsize=(15, 8))
